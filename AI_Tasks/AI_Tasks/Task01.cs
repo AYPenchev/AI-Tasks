@@ -50,7 +50,6 @@
                     break;
                 }
 
-                //exploreNeighbours(row, col);
                 int rr, cc;
 
                 for (int i = 0; i < 4; i++)
@@ -68,20 +67,20 @@
                         continue;
                     }
 
+                    visited[rr, cc] = true;
+
                     if (matrix[rr, cc] == 2)
                     {
                         rr = 2;
                         cc = 4;
+                        visited[rr, cc] = true;
+
                     }
 
                     rowQueue.Enqueue(rr);
                     colQueue.Enqueue(cc);
-                    visited[rr, cc] = true;
-                    //Console.Write(matrix[rr, cc] + " ");
                     nodesInNextLayer++;
                 }
-
-               // Console.WriteLine();
 
                 nodesLeftInLayer--;
 
