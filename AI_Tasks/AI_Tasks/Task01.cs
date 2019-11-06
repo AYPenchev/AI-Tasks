@@ -36,8 +36,8 @@
             rowQueue.Enqueue(starRow);
             colQueue.Enqueue(startCol);
             visited[starRow, startCol] = true;
-            int[] dr = { 0, 1, 0, -1 };
-            int[] dc = { 1, 0, -1, 0 };
+            int[] directionRow = { 0, 1, 0, -1 };
+            int[] directionCol = { 1, 0, -1, 0 };
 
             while (rowQueue.Count > 0)
             {
@@ -50,35 +50,35 @@
                     break;
                 }
 
-                int rr, cc;
+                int newRowPosition, newColPosition;
 
                 for (int i = 0; i < 4; i++)
                 {
-                    rr = row + dr[i];
-                    cc = col + dc[i];
+                    newRowPosition = row + directionRow[i];
+                    newColPosition = col + directionCol[i];
 
-                    if (rr < 0 || cc < 0 || rr >= rowLength || cc >= columnLength)
+                    if (newRowPosition < 0 || newColPosition < 0 || newRowPosition >= rowLength || newColPosition >= columnLength)
                     {
                         continue;
                     }
 
-                    if (visited[rr, cc] || matrix[rr, cc] == 0)
+                    if (visited[newRowPosition, newColPosition] || matrix[newRowPosition, newColPosition] == 0)
                     {
                         continue;
                     }
 
-                    visited[rr, cc] = true;
+                    visited[newRowPosition, newColPosition] = true;
 
-                    if (matrix[rr, cc] == 2)
+                    if (matrix[newRowPosition, newColPosition] == 2)
                     {
-                        rr = 2;
-                        cc = 4;
-                        visited[rr, cc] = true;
+                        newRowPosition = 2;
+                        newColPosition = 4;
+                        visited[newRowPosition, newColPosition] = true;
 
                     }
 
-                    rowQueue.Enqueue(rr);
-                    colQueue.Enqueue(cc);
+                    rowQueue.Enqueue(newRowPosition);
+                    colQueue.Enqueue(newColPosition);
                     nodesInNextLayer++;
                 }
 
