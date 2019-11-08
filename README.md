@@ -1,2 +1,2 @@
 # AI-Tasks
-Sofia university subject
+Sofia university project
