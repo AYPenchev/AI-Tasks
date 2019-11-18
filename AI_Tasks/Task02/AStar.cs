@@ -1,19 +1,22 @@
-﻿
-using System.Linq;
-
-namespace Task02
+﻿namespace Task02
 {
     using System;
+    using System.Linq;
     using System.Collections.Generic;
-    using System.Collections;
 
     class AStar
     {
         private static int[,] grid =
         {
-            {6, 5, 4},
-            {2, 4, 8},
-            {7, 0, 1}
+            { 1, 0, 1, 1, 1, 1, 0, 1, 1, 1 },
+            { 1, 1, 1, 0, 1, 1, 1, 0, 1, 1 },
+            { 1, 1, 1, 0, 1, 1, 0, 1, 0, 1 },
+            { 0, 0, 1, 0, 1, 0, 0, 0, 0, 1 },
+            { 1, 1, 1, 0, 1, 1, 1, 0, 1, 0 },
+            { 1, 0, 1, 1, 1, 1, 0, 1, 0, 0 },
+            { 1, 0, 0, 0, 0, 1, 0, 0, 0, 1 },
+            { 1, 0, 1, 1, 1, 1, 0, 1, 1, 1 },
+            { 1, 1, 1, 0, 0, 0, 1, 0, 0, 1 }
         };
         private static int xLen = grid.GetLength(0);
         private static int yLen = grid.GetLength(1);
@@ -62,10 +65,10 @@ namespace Task02
             return (row >= 0) && (row < xLen) && (col >= 0) && (col < yLen);
         }
 
-        //public static bool IsUnblocked(int[,] grid, int row, int col)
-        //{
-        //    return grid[row, col] == 0;
-        //}
+        public static bool IsUnblocked(int[,] grid, int row, int col)
+        {
+            return grid[row, col] == 1;
+        }
 
         public static bool IsDestination(int row, int col, Tuple<int, int> dest)
         {
@@ -118,11 +121,11 @@ namespace Task02
                 return;
             }
 
-            //if (!IsUnblocked(grid, src.Item1, src.Item2) || !IsUnblocked(grid, dest.Item1, dest.Item2))
-            //{
-            //    Console.WriteLine("Source or the destination is blocked");
-            //    return;
-            //}
+            if (!IsUnblocked(grid, src.Item1, src.Item2) || !IsUnblocked(grid, dest.Item1, dest.Item2))
+            {
+                Console.WriteLine("Source or the destination is blocked");
+                return;
+            }
 
             if (IsDestination(src.Item1, src.Item2, dest))
             {
@@ -179,9 +182,9 @@ namespace Task02
                         Console.WriteLine("The destination cell is found");
                         TracePath(cellDetails, dest);
                         isFoundDest = true;
-                        return;
+                        break;
                     }
-                    else if (closedList[i - 1, j] == false /*&& IsUnblocked(grid, i - 1, j)*/)
+                    else if (closedList[i - 1, j] == false && IsUnblocked(grid, i - 1, j))
                     {
                         gNew = cellDetails[i, j].G + 1.0;
                         hNew = CalculateHValue(i - 1, j, dest);
@@ -209,9 +212,9 @@ namespace Task02
                         Console.WriteLine("The destination cell is found");
                         TracePath(cellDetails, dest);
                         isFoundDest = true;
-                        return;
+                        break;
                     }
-                    else if (closedList[i + 1, j] == false /*&& IsUnblocked(grid, i + 1, j)*/)
+                    else if (closedList[i + 1, j] == false && IsUnblocked(grid, i + 1, j))
                     {
                         gNew = cellDetails[i, j].G + 1.0;
                         hNew = CalculateHValue(i + 1, j, dest);
@@ -240,9 +243,9 @@ namespace Task02
                         Console.WriteLine("The destination cell is found");
                         TracePath(cellDetails, dest);
                         isFoundDest = true;
-                        return;
+                        break;
                     }
-                    else if (closedList[i, j + 1] == false /*&& IsUnblocked(grid, i, j + 1)*/)
+                    else if (closedList[i, j + 1] == false && IsUnblocked(grid, i, j + 1))
                     {
                         gNew = cellDetails[i, j].G + 1.0;
                         hNew = CalculateHValue(i, j + 1, dest);
@@ -270,9 +273,9 @@ namespace Task02
                         Console.WriteLine("The destination cell is found");
                         TracePath(cellDetails, dest);
                         isFoundDest = true;
-                        return;
+                        break;
                     }
-                    else if (closedList[i, j - 1] == false /*&& IsUnblocked(grid, i, j - 1)*/)
+                    else if (closedList[i, j - 1] == false && IsUnblocked(grid, i, j - 1))
                     {
                         gNew = cellDetails[i, j].G + 1.0;
                         hNew = CalculateHValue(i, j - 1, dest);
@@ -300,7 +303,7 @@ namespace Task02
             
         static void Main()
         {
-            Tuple<int, int> src = new Tuple<int, int>(2, 2);
+            Tuple<int, int> src = new Tuple<int, int>(8, 0);
             Tuple<int, int> dest = new Tuple<int, int>(0, 0);
             
             AStarSearch(grid, src, dest);
