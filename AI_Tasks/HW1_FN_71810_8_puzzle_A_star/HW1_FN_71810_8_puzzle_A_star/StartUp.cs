@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-
-namespace Task02Better
+﻿namespace Task02Better
 {
-    using System;
-
     class StartUp
     {
         public static void Main()
@@ -17,8 +13,12 @@ namespace Task02Better
             var board = new Board(startState);
             var startingState = new State(board, null, null, 0);
 
-            var idaStar = new AStarSolver();
-            idaStar.Solve(startingState);
+            var aStar = new AStarSolver();
+            var measurer = new PerformanceMeasurer();
+            measurer.StartMeasuring();
+            aStar.Solve(startingState);
+            measurer.StopMeasuring();
+            measurer.PrintResults();
         }
     }
 }
