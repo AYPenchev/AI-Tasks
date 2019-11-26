@@ -60,15 +60,24 @@
 
                     switch (num)
                     {
-                        case 1: this.manhatanDistance += Math.Abs(0 - i) + Math.Abs(1 - j); break;
-                        case 2: this.manhatanDistance += Math.Abs(0 - i) + Math.Abs(2 - j); break;
-                        case 3: this.manhatanDistance += Math.Abs(1 - i) + Math.Abs(0 - j); break;
-                        case 4: this.manhatanDistance += Math.Abs(1 - i) + Math.Abs(1 - j); break;
-                        case 5: this.manhatanDistance += Math.Abs(1 - i) + Math.Abs(2 - j); break;
-                        case 6: this.manhatanDistance += Math.Abs(2 - i) + Math.Abs(0 - j); break;
-                        case 7: this.manhatanDistance += Math.Abs(2 - i) + Math.Abs(1 - j); break;
-                        case 8: this.manhatanDistance += Math.Abs(2 - i) + Math.Abs(2 - j); break;
-                                                                   
+                        //case 1: this.manhatanDistance += Math.Abs(0 - i) + Math.Abs(1 - j); break;
+                        //case 2: this.manhatanDistance += Math.Abs(0 - i) + Math.Abs(2 - j); break;
+                        //case 3: this.manhatanDistance += Math.Abs(1 - i) + Math.Abs(0 - j); break;
+                        //case 4: this.manhatanDistance += Math.Abs(1 - i) + Math.Abs(1 - j); break;
+                        //case 5: this.manhatanDistance += Math.Abs(1 - i) + Math.Abs(2 - j); break;
+                        //case 6: this.manhatanDistance += Math.Abs(2 - i) + Math.Abs(0 - j); break;
+                        //case 7: this.manhatanDistance += Math.Abs(2 - i) + Math.Abs(1 - j); break;
+                        //case 8: this.manhatanDistance += Math.Abs(2 - i) + Math.Abs(2 - j); break;
+
+                        case 1: this.manhatanDistance += Math.Abs(0 - i) + Math.Abs(0 - j); break;
+                        case 2: this.manhatanDistance += Math.Abs(0 - i) + Math.Abs(1 - j); break;
+                        case 3: this.manhatanDistance += Math.Abs(0 - i) + Math.Abs(2 - j); break;
+                        case 4: this.manhatanDistance += Math.Abs(1 - i) + Math.Abs(0 - j); break;
+                        case 5: this.manhatanDistance += Math.Abs(1 - i) + Math.Abs(1 - j); break;
+                        case 6: this.manhatanDistance += Math.Abs(1 - i) + Math.Abs(2 - j); break;
+                        case 7: this.manhatanDistance += Math.Abs(2 - i) + Math.Abs(0 - j); break;
+                        case 8: this.manhatanDistance += Math.Abs(2 - i) + Math.Abs(1 - j); break;
+
                         default:
                             break;
                     }
