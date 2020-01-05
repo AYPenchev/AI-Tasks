@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_task6", "AI_task6\AI_task6.csproj", "{9F9D7B01-7208-46F5-9D07-5DA8D60E0A67}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F9D7B01-7208-46F5-9D07-5DA8D60E0A67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F9D7B01-7208-46F5-9D07-5DA8D60E0A67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F9D7B01-7208-46F5-9D07-5DA8D60E0A67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F9D7B01-7208-46F5-9D07-5DA8D60E0A67}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6DBBD696-2242-4062-9723-4C5AD5308632}
+	EndGlobalSection
+EndGlobal
