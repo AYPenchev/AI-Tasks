@@ -65,11 +65,11 @@ namespace AI_task5
             {
                 if (voteMap.ContainsKey(kNeighbours[i].getType()))
                 {
-                    voteMap.Add(kNeighbours[i].getType(), voteMap[kNeighbours[i].getType()] + 1);
+                    voteMap[kNeighbours[i].getType()] = voteMap[kNeighbours[i].getType()] + 1;
                 }
                 else
                 {
-                    voteMap.Add(kNeighbours[i].getType(), 1);
+                    voteMap[kNeighbours[i].getType()] = 1;
                 }
             }
             int maxVotes = 0;
