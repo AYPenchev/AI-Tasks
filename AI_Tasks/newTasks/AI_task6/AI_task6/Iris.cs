@@ -8,13 +8,13 @@ namespace AI_task6
 {
     public class Iris
     {
-        private double sepalLength;
-        private double sepalWidth;
-        private double petalLength;
-        private double petalWidth;
+        private decimal sepalLength;
+        private decimal sepalWidth;
+        private decimal petalLength;
+        private decimal petalWidth;
         private string name;
 
-    public Iris(double sepalLength, double sepalWidth, double petalLength, double petalWidth, String name)
+    public Iris(decimal sepalLength, decimal sepalWidth, decimal petalLength, decimal petalWidth, string name)
         {
             this.sepalLength = sepalLength;
             this.sepalWidth = sepalWidth;
@@ -32,22 +32,22 @@ namespace AI_task6
             this.name = iris.name;
         }
 
-        public double getSepalLength()
+        public decimal getSepalLength()
         {
             return sepalLength;
         }
 
-        public double getSepalWidth()
+        public decimal getSepalWidth()
         {
             return sepalWidth;
         }
 
-        public double getPetalLength()
+        public decimal getPetalLength()
         {
             return petalLength;
         }
 
-        public double getPetalWidth()
+        public decimal getPetalWidth()
         {
             return petalWidth;
         }
@@ -60,11 +60,14 @@ namespace AI_task6
         public override bool Equals(object obj)
         {
             if (this == obj) return true;
-            if (obj == null || this.getType() != obj.GetType()) return false;
+            if (obj == null || typeof(Iris) != typeof(object))
+            {
+                return false;
+            }
             Iris iris = (Iris)obj;
-            return double.Compare(iris.sepalLength, sepalLength) == 0 && double.compare(iris.sepalWidth, sepalWidth) == 0 &&
-                    double.compare(iris.petalLength, petalLength) == 0 &&
-                    double.compare(iris.petalWidth, petalWidth) == 0 &&
+            return (iris.sepalLength == sepalLength) && (iris.sepalWidth == sepalWidth) &&
+                    (iris.petalLength == petalLength) &&
+                    (iris.petalWidth == petalWidth) &&
                     name.Equals(((Iris)obj).name);
         }
     }

@@ -13,12 +13,26 @@ namespace AI_task6
         private List<List<Iris>> clusters = new List<List<Iris>>();
         private List<Iris> previousCentroids = new List<Iris>();
 
-        public IrisKMeans(List<Iris> irises, int k)
+
+        private static readonly object syncObject;
+        private static readonly Random generator = new Random();
+
+        public static int Next(int maxValue)
+        {
+            int x = generator.Next();
+            if (x < maxValue)
+            {
+                lock (syncObject) return x;
+            }
+            return Next(maxValue);
+        }
+
+    public IrisKMeans(List<Iris> irises, int k)
         {
             this.irises = irises;
             for (int i = 0; i < k; ++i)
             {
-                centroids.Add(new Iris(irises[ThreadLocalRandom.current().nextInt(irises.Count / k) * (i + 1)])); //Forgy Initialization Method.
+                centroids.Add(new Iris(irises[Next(irises.Count / k) * (i + 1)])); //Forgy Initialization Method.
                 previousCentroids.Add(new Iris(centroids[i]));
                 clusters.Add(new List<Iris>());
             }
@@ -82,10 +96,10 @@ namespace AI_task6
 
         private void moveCentroids()
         {
-            double x = 0.0d;
-            double y = 0.0d;
-            double z = 0.0d;
-            double w = 0.0d;
+            decimal x = 0.0m;
+            decimal y = 0.0m;
+            decimal z = 0.0m;
+            decimal w = 0.0m;
             for (int i = 0; i < clusters.Count; ++i)
             {
                 for (int j = 0; j < clusters[i].Count; ++j)
@@ -104,18 +118,18 @@ namespace AI_task6
             }
         }
 
-        public double Distance(Iris a, Iris b)
+        public decimal Distance(Iris a, Iris b)
         {
-            return Math.Sqrt((a.getSepalLength() - b.getSepalLength()) * (a.getSepalLength() - b.getSepalLength()) +
+            return (decimal)Math.Sqrt((double)((a.getSepalLength() - b.getSepalLength()) * (a.getSepalLength() - b.getSepalLength()) +
                     (a.getSepalWidth() - b.getSepalWidth()) * (a.getSepalWidth() - b.getSepalWidth()) +
                     (a.getPetalLength() - b.getPetalLength()) * (a.getPetalLength() - b.getPetalLength()) +
-                    (a.getPetalWidth() - b.getPetalWidth()) * (a.getPetalWidth() - b.getPetalWidth()));
+                    (a.getPetalWidth() - b.getPetalWidth()) * (a.getPetalWidth() - b.getPetalWidth())));
         }
 
         private int findClosestCentroid(Iris a)
         {
-            double minDistance = Distance(a, centroids[0]);
-            double distance;
+            decimal minDistance = Distance(a, centroids[0]);
+            decimal distance;
             int closestCentroid = 0;
             for (int i = 1; i < centroids.Count; ++i)
             {
