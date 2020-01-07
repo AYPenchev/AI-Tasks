@@ -19,8 +19,8 @@ namespace AI_task6
                 while (!reader.EndOfStream)
                 {
                     line = reader.ReadLine();
-                    string[] data = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                    iris.Add(new Iris(decimal.Parse(data[0]), decimal.Parse(data[1]), decimal.Parse(data[2]), decimal.Parse(data[3]), data[4]));
+                    string[] data = line.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                    iris.Add(new Iris(double.Parse(data[0]), double.Parse(data[1]), double.Parse(data[2]), double.Parse(data[3]), data[4]));
                 }
                 reader.Close();
             }

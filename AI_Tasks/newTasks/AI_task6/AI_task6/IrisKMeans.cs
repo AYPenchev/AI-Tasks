@@ -6,6 +6,28 @@ using System.Threading.Tasks;
 
 namespace AI_task6
 {
+    public static class ThreadSafeRandom
+    {
+        private static readonly Random _global = new Random();
+        [ThreadStatic] private static Random _local;
+
+        public static int Next()
+        {
+            if (_local == null)
+            {
+                lock (_global)
+                {
+                    if (_local == null)
+                    {
+                        int seed = _global.Next();
+                        _local = new Random(seed);
+                    }
+                }
+            }
+
+            return _local.Next();
+        }
+    }
     public class IrisKMeans
     {
         private List<Iris> irises;
@@ -13,26 +35,22 @@ namespace AI_task6
         private List<List<Iris>> clusters = new List<List<Iris>>();
         private List<Iris> previousCentroids = new List<Iris>();
 
-
-        private static readonly object syncObject;
-        private static readonly Random generator = new Random();
-
-        public static int Next(int maxValue)
-        {
-            int x = generator.Next();
-            if (x < maxValue)
-            {
-                lock (syncObject) return x;
-            }
-            return Next(maxValue);
-        }
-
     public IrisKMeans(List<Iris> irises, int k)
         {
             this.irises = irises;
             for (int i = 0; i < k; ++i)
             {
-                centroids.Add(new Iris(irises[Next(irises.Count / k) * (i + 1)])); //Forgy Initialization Method.
+                int x;
+                while (true)
+                {
+                    x = ThreadSafeRandom.Next();
+                    if (x < irises.Count / k)
+                    {
+                        break;
+                    }
+                }
+
+                centroids.Add(new Iris(irises[x * (i + 1)])); //Forgy Initialization Method.
                 previousCentroids.Add(new Iris(centroids[i]));
                 clusters.Add(new List<Iris>());
             }
@@ -96,10 +114,10 @@ namespace AI_task6
 
         private void moveCentroids()
         {
-            decimal x = 0.0m;
-            decimal y = 0.0m;
-            decimal z = 0.0m;
-            decimal w = 0.0m;
+            double x = 0.0d;
+            double y = 0.0d;
+            double z = 0.0d;
+            double w = 0.0d;
             for (int i = 0; i < clusters.Count; ++i)
             {
                 for (int j = 0; j < clusters[i].Count; ++j)
@@ -109,27 +127,32 @@ namespace AI_task6
                     z += clusters[i][j].getPetalLength();
                     w += clusters[i][j].getPetalWidth();
                 }
-                x /= clusters[i].Count;
-                y /= clusters[i].Count;
-                z /= clusters[i].Count;
-                w /= clusters[i].Count;
+
+                if (clusters[i].Count != 0)
+                {
+                    x /= clusters[i].Count;
+                    y /= clusters[i].Count;
+                    z /= clusters[i].Count;
+                    w /= clusters[i].Count;
+                }
+
                 previousCentroids[i] = new Iris(centroids[i]);
                 centroids[i] = new Iris(x, y, z, w, "Centroid");
             }
         }
 
-        public decimal Distance(Iris a, Iris b)
+        public double Distance(Iris a, Iris b)
         {
-            return (decimal)Math.Sqrt((double)((a.getSepalLength() - b.getSepalLength()) * (a.getSepalLength() - b.getSepalLength()) +
+            return Math.Sqrt((a.getSepalLength() - b.getSepalLength()) * (a.getSepalLength() - b.getSepalLength()) +
                     (a.getSepalWidth() - b.getSepalWidth()) * (a.getSepalWidth() - b.getSepalWidth()) +
                     (a.getPetalLength() - b.getPetalLength()) * (a.getPetalLength() - b.getPetalLength()) +
-                    (a.getPetalWidth() - b.getPetalWidth()) * (a.getPetalWidth() - b.getPetalWidth())));
+                    (a.getPetalWidth() - b.getPetalWidth()) * (a.getPetalWidth() - b.getPetalWidth()));
         }
 
         private int findClosestCentroid(Iris a)
         {
-            decimal minDistance = Distance(a, centroids[0]);
-            decimal distance;
+            double minDistance = Distance(a, centroids[0]);
+            double distance;
             int closestCentroid = 0;
             for (int i = 1; i < centroids.Count; ++i)
             {
